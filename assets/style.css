@@ -44,24 +44,30 @@ header {
   text-align: center;
   padding: 10px;
   margin: 10px;
+  width: 700px;
 }
 
 .item-3 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 300px;
+
 }
 
 
 .button-link {
   display: inline-block;
+  text-align: left;
   background-color: #351C75;
   color: white;
   padding: 15px 30px;
   border-radius: 10px;
   margin-right: 10px;
   margin-left: 10px;
+  width: 100%;
 }
+
 
 .button-link:hover {
   background-color: #BD60E7;
