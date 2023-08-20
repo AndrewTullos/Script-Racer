@@ -1,16 +1,20 @@
+/* Universal Styling */
 * {
   color: black;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-size: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 26px;
 }
 
+/* Link Styling */
 a {
   text-decoration: none;
   margin: 10px;
 }
 
+/* Top Container */
 .container-top {
   display: flex;
   flex-direction: row;
@@ -32,6 +36,11 @@ header {
   color: #BD60E7;
 }
 
+.leaderboard:hover {
+  animation: backwards;
+}
+
+/* Main Styling */
 .container {
   display: flex;
   justify-content: space-around;
@@ -55,7 +64,6 @@ header {
 
 }
 
-
 .button-link {
   display: inline-block;
   text-align: left;
@@ -68,8 +76,15 @@ header {
   width: 100%;
 }
 
-
 .button-link:hover {
   background-color: #BD60E7;
   cursor: grab;
+}
+
+p {
+
+}
+
+h1 {
+  font-size: 36px;
 }
