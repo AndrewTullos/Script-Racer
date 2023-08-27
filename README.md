@@ -7,3 +7,4 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
 https://www.nikitakazakov.com/js-wait-until-loaded-dom-element
 https://www.reddit.com/r/learnjavascript/comments/nuezux/uncaught_typeerror_documentqueryselector_is_null/
+https://www.nikitakazakov.com/js-wait-until-loaded-dom-element
