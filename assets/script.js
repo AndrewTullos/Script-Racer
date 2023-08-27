@@ -19,22 +19,37 @@
 
 
 */
+
 let time = document.getElementById('timer');
 let startBtn = document.getElementById('start');
-let incorrectAnswer = document.querySelectorAll('false')
-let correctAnswer = document.querySelectorAll('true')
-let lastQuestionStopTime = document.querySelectorAll('last');
+let incorrectAnswer = document.querySelectorAll('.false');
+incorrectAnswer.forEach((element) => console.log('Add 10 seconds to clock'));
+
+let correctAnswer = document.querySelectorAll('.true');
+correctAnswer.forEach((element) => console.log('Correct'));
+
+let lastQuestionStopTime = document.querySelectorAll('.last');
+lastQuestionStopTime.forEach((element) => console.log('stop clock'));
+
 
 let startTime = 0;
 let elapsedTime = 0;
-let hrs = 0;
-let minutes = 0;
+// let hrs = 0;
+let mins = 0;
 let sec = 0;
+let intervalId;
 
-// Timer
-startBtn.addEventListener('click', () => {
-  startTime = Date.now()
-})
+
+// DOM Content loaded from Reddit solution question
+document.addEventListener('DOMContentLoaded', (event) => {
+  // Timer
+  startBtn.addEventListener('click', function startClock() {
+    elapsedTime = Date.now() - startTime;
+
+  })
+
+
+})l
 
 
 // Call the function to start the timer
