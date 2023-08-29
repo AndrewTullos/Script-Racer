@@ -49,6 +49,10 @@ header {
   width: auto;
 }
 
+.questions {
+  margin: 10px;
+}
+
 .item {
   text-align: center;
   padding: 10px;
@@ -65,6 +69,14 @@ header {
 }
 
 .button-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.button-link,
+button {
   display: inline-block;
   text-align: left;
   background-color: #351C75;
@@ -77,6 +89,11 @@ header {
 }
 
 .button-link:hover {
+  background-color: #BD60E7;
+  cursor: grab;
+}
+
+button:hover {
   background-color: #BD60E7;
   cursor: grab;
 }
