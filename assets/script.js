@@ -4,10 +4,10 @@ const questions = [
   {
     question: 'Commonly Used Data Types Do not include?',
     answers: [
-      { text: 'Strings', correct: false },
-      { text: 'alerts', correct: true },
-      { text: 'booleans', correct: false },
-      { text: 'Numbers', correct: false },
+      { text: 'Strings', correct: false, last: false },
+      { text: 'alerts', correct: true, last: false },
+      { text: 'booleans', correct: false, last: false },
+      { text: 'Numbers', correct: false, last: false },
     ]
   },
   {
@@ -158,3 +158,10 @@ function renderAnswers() {
 
 
 startGame();
+
+/* Logic yet to be added:
+  - timer
+  - local storage component
+  - adding 10 seconds to clock if answer not correct
+  - checking if 'last variable is true to exit game to leaderboard and save initials
+*/
