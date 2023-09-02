@@ -4,91 +4,91 @@ const questions = [
   {
     question: 'Commonly Used Data Types Do not include?',
     answers: [
-      { text: 'Strings', correct: false, last: false },
-      { text: 'alerts', correct: true, last: false },
-      { text: 'booleans', correct: false, last: false },
-      { text: 'Numbers', correct: false, last: false },
+      { text: 'Strings', correct: false },
+      { text: 'alerts', correct: true },
+      { text: 'booleans', correct: false },
+      { text: 'Numbers', correct: false },
     ]
   },
   {
     question: 'What is the correct syntax for declaring a variable in JavaScript?',
     answers: [
-      { text: 'var myVariable = 10;', correct: true, last: false },
-      { text: 'int myVariable = 10;', correct: false, last: false },
-      { text: 'let myVariable: 10;', correct: false, last: false },
-      { text: 'variable myVariable = 10;', correct: false, last: false },
+      { text: 'var myVariable = 10;', correct: true },
+      { text: 'int myVariable = 10;', correct: false },
+      { text: 'let myVariable: 10;', correct: false },
+      { text: 'variable myVariable = 10;', correct: false },
     ]
   },
   {
     question: 'How do you create a function in JavaScript?',
     answers: [
-      { text: 'function myFunction() {}', correct: true, last: false },
-      { text: 'def myFunction():', correct: false, last: false },
-      { text: 'func myFunction() {}', correct: false, last: false },
-      { text: 'create function myFunction()', correct: false, last: false },
+      { text: 'function myFunction() {}', correct: true },
+      { text: 'def myFunction():', correct: false },
+      { text: 'func myFunction() {}', correct: false },
+      { text: 'create function myFunction()', correct: false },
     ]
   },
   {
     question: 'Which method removes the last element from an array?',
     answers: [
-      { text: 'pop()', correct: true, last: false },
-      { text: 'shift()', correct: false, last: false },
-      { text: 'splice()', correct: false, last: false },
-      { text: 'remove()', correct: false, last: false },
+      { text: 'pop()', correct: true },
+      { text: 'shift()', correct: false },
+      { text: 'splice()', correct: false },
+      { text: 'remove()', correct: false },
     ]
   },
   {
     question: 'How do you write a single-line comment in JavaScript?',
     answers: [
-      { text: '&lt;!-- This is a comment --&gt;', correct: false, last: false },
-      { text: '// This is a comment', correct: true, last: false },
-      { text: '/* This is a comment */', correct: false, last: false },
-      { text: '-- This is a comment', correct: false, last: false },
+      { text: '&lt;!-- This is a comment --&gt;', correct: false },
+      { text: '// This is a comment', correct: true },
+      { text: '/* This is a comment */', correct: false },
+      { text: '-- This is a comment', correct: false },
     ]
   },
   {
     question: 'What is the output of typeof null?',
     answers: [
-      { text: '"null"', correct: false, last: false },
-      { text: '"undefined"', correct: false, last: false },
-      { text: '"object"', correct: true, last: false },
-      { text: '"number"', correct: false, last: false },
+      { text: '"null"', correct: false },
+      { text: '"undefined"', correct: false },
+      { text: '"object"', correct: true },
+      { text: '"number"', correct: false },
     ]
   },
   {
     question: 'Which of the following is NOT a falsy value in JavaScript?',
     answers: [
-      { text: '0', correct: false, last: false },
-      { text: 'null', correct: false, last: false },
-      { text: 'true', correct: true, last: false },
-      { text: '""', correct: false, last: false },
+      { text: '0', correct: false },
+      { text: 'null', correct: false },
+      { text: 'true', correct: true },
+      { text: '""', correct: false },
     ]
   },
   {
     question: 'How do you find the length of a string stored in a variable str?',
     answers: [
-      { text: 'str.length()', correct: false, last: false },
-      { text: 'str.size()', correct: false, last: false },
-      { text: 'length(str)', correct: false, last: false },
-      { text: 'str.length', correct: true, last: false },
+      { text: 'str.length()', correct: false },
+      { text: 'str.size()', correct: false },
+      { text: 'length(str)', correct: false },
+      { text: 'str.length', correct: true },
     ]
   },
   {
     question: 'What is the correct way to check if two variables are equal in value and type?',
     answers: [
-      { text: '==', correct: false, last: false },
-      { text: '===', correct: true, last: false },
-      { text: 'isEqual()', correct: false, last: false },
-      { text: 'equals()', correct: false, last: false },
+      { text: '==', correct: false },
+      { text: '===', correct: true },
+      { text: 'isEqual()', correct: false },
+      { text: 'equals()', correct: false },
     ]
   },
   {
     question: 'Which of the following is used to include external JavaScript code into HTML?',
     answers: [
-      { text: '<script src="script.js"></script>', correct: true, last: false },
-      { text: '<link href="script.js">', correct: false, last: false },
-      { text: '<include src="script.js">', correct: false, last: false },
-      { text: '<javascriptfile="script.js">', correct: false, last: false },
+      { text: '<script src="script.js"></script>', correct: true },
+      { text: '<link href="script.js">', correct: false },
+      { text: '<include src="script.js">', correct: false },
+      { text: '<javascriptfile="script.js">', correct: false },
     ]
   },
   {
@@ -105,6 +105,8 @@ var questionElement = document.querySelector("#question");
 var answerElement = document.querySelector("#answer-buttons");
 var startBtn = document.querySelector("#start");
 var index = 0;
+var timer = 0;
+var timerEL = document.querySelector('#timer')
 
 function startGame() {
   renderQuestion();
@@ -112,17 +114,28 @@ function startGame() {
   startBtn.addEventListener('click', function () {
     // Starting the quiz
     navigate(1);
+    // startTimer();
   });
 }
+
+// function startTimer() {
+//   var timerInterval = setInterval(function() {
+//     timer++;
+//     timerEL.textContent = timer + "this works"
+//   })
+// }
 
 function navigate(direction) {
   // Incrementing the index
   index += direction;
   if (index < 0) {
     index = questions.length - 1;
+    // this should maybe be the pointer to the last spot
   } else if (index >= questions.length) {
+    window.location.assign("./leaderboard.html")
     // Loop back to the first question
-    index = 0;
+    // index = 0;
+    // hide all stuff and show a form to enter the information and save to loacal storage
   }
   renderQuestion();
   renderAnswers();
@@ -136,7 +149,7 @@ function renderAnswers() {
   // Clear previous buttons
   answerElement.innerHTML = "";
   for (let i = 0; i < questions[index].answers.length; i++) {
-    // Create a new button element
+    // Create a new p element
     const btn = document.createElement("button");
     // Add a class to style the button
     btn.className = "btn";
