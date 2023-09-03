@@ -107,28 +107,34 @@ var answerElement = document.querySelector("#answer-buttons");
 var startBtn = document.querySelector("#start");
 var result = document.querySelector("#result");
 var resultArea = document.querySelector(".result-area");
+var loser = document.querySelector("#lose");
+
+
 var index = 0;
 var timer = 60;
 var timerEL = document.querySelector('#timer')
 
-
+// Starting the quiz
 function startGame() {
   renderQuestion();
   renderAnswers();
   startTimer();
-  // Starting the quiz
+  // Navigate through questions
   startBtn.addEventListener('click', function () {
     navigate(1);
   });
 
 }
 
+// Timer functionality
 function startTimer() {
   var intervalId = setInterval(function () {
     timer--;
     timerEL.textContent = timer;
-    if (timer === 60) {
+    if (timer <= 0) {
       clearInterval(intervalId);
+      window.location.assign("./Leaderboard.html")
+      loser.textContent = "I'm sorry, but you ran out of time.";
     }
     // if (questions[index].last == true) {
 
@@ -170,13 +176,11 @@ function renderAnswers() {
     btn.addEventListener('click', function () {
       if (questions[index].answers[i].correct) {
         console.log('That is correct');
-        resultArea.style.display = 'block';
         result.style.display = 'block';
         result.textContent = "Correct!"
         navigate(1);
       } else {
         console.log('That is incorrect');
-        resultArea.style.display = 'block';
         result.style.display = 'block';
         result.textContent = "That is incorrect. Lose 10 seconds to time"
         navigate(1);
