@@ -40,7 +40,7 @@ const questions = [
   {
     question: 'How do you write a single-line comment in JavaScript?',
     answers: [
-      { text: '&lt;!-- This is a comment --&gt;', correct: false },
+      { text: '< This is a comment >', correct: false },
       { text: '// This is a comment', correct: true },
       { text: '/* This is a comment */', correct: false },
       { text: '-- This is a comment', correct: false },
@@ -101,29 +101,41 @@ const questions = [
     ]
   },
 ];
+
 var questionElement = document.querySelector("#question");
 var answerElement = document.querySelector("#answer-buttons");
 var startBtn = document.querySelector("#start");
+var result = document.querySelector("#result");
+var resultArea = document.querySelector(".result-area");
 var index = 0;
-var timer = 0;
+var timer = 60;
 var timerEL = document.querySelector('#timer')
+
 
 function startGame() {
   renderQuestion();
   renderAnswers();
+  startTimer();
+  // Starting the quiz
   startBtn.addEventListener('click', function () {
-    // Starting the quiz
     navigate(1);
-    // startTimer();
   });
+
 }
 
-// function startTimer() {
-//   var timerInterval = setInterval(function() {
-//     timer++;
-//     timerEL.textContent = timer + "this works"
-//   })
-// }
+function startTimer() {
+  var intervalId = setInterval(function () {
+    timer--;
+    timerEL.textContent = timer;
+    if (timer === 60) {
+      clearInterval(intervalId);
+    }
+    // if (questions[index].last == true) {
+
+    // }
+  }, 1000);
+  console.log(timer);
+}
 
 function navigate(direction) {
   // Incrementing the index
@@ -132,7 +144,7 @@ function navigate(direction) {
     index = questions.length - 1;
     // this should maybe be the pointer to the last spot
   } else if (index >= questions.length) {
-    window.location.assign("./leaderboard.html")
+    window.location.assign("./Leaderboard.html")
     // Loop back to the first question
     // index = 0;
     // hide all stuff and show a form to enter the information and save to loacal storage
@@ -158,10 +170,17 @@ function renderAnswers() {
     btn.addEventListener('click', function () {
       if (questions[index].answers[i].correct) {
         console.log('That is correct');
+        resultArea.style.display = 'block';
+        result.style.display = 'block';
+        result.textContent = "Correct!"
         navigate(1);
       } else {
         console.log('That is incorrect');
+        resultArea.style.display = 'block';
+        result.style.display = 'block';
+        result.textContent = "That is incorrect. Lose 10 seconds to time"
         navigate(1);
+        timer -= 10;
       }
     });
     // Append the button to the parent element
@@ -169,6 +188,9 @@ function renderAnswers() {
   }
 }
 
+// function gameOver () {
+//   if (timer === 0 || )
+// };
 
 startGame();
 

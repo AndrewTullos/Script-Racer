@@ -103,3 +103,29 @@ p {}
 h1 {
   font-size: 36px;
 }
+
+#result-area {
+  margin-top: 20px;
+  display: none;
+}
+
+#result {
+  display: none;
+  margin-top: 20px;
+}
+
+#scoreboard {
+  display: none;
+  font-size: large;
+}
+
+#submit-btn {
+  display: inline-block;
+  text-align: left;
+  background-color: #351C75;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 10px;
+  margin: 10px;
+  width: 20%;
+}
