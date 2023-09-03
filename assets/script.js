@@ -109,7 +109,7 @@ var result = document.querySelector("#result");
 var resultArea = document.querySelector(".result-area");
 var loser = document.querySelector("#lose");
 
-
+var logScore = 0;
 var index = 0;
 var timer = 60;
 var timerEL = document.querySelector('#timer')
@@ -126,19 +126,19 @@ function startGame() {
 
 }
 
+
 // Timer functionality
 function startTimer() {
   var intervalId = setInterval(function () {
     timer--;
     timerEL.textContent = timer;
     if (timer <= 0) {
+      logScore = 0;
       clearInterval(intervalId);
-      window.location.assign("./Leaderboard.html")
-      loser.textContent = "I'm sorry, but you ran out of time.";
-    }
-    // if (questions[index].last == true) {
+      window.location.assign("./Leaderboard.html");
+      loser.style.display = 'block';
 
-    // }
+    }
   }, 1000);
   console.log(timer);
 }
@@ -148,12 +148,10 @@ function navigate(direction) {
   index += direction;
   if (index < 0) {
     index = questions.length - 1;
-    // this should maybe be the pointer to the last spot
+    // End of test
   } else if (index >= questions.length) {
     window.location.assign("./Leaderboard.html")
-    // Loop back to the first question
-    // index = 0;
-    // hide all stuff and show a form to enter the information and save to loacal storage
+    localStorage.setItem('currentUser', logScore);
   }
   renderQuestion();
   renderAnswers();
@@ -177,13 +175,15 @@ function renderAnswers() {
       if (questions[index].answers[i].correct) {
         console.log('That is correct');
         result.style.display = 'block';
-        result.textContent = "Correct!"
+        result.textContent = "Correct!";
         navigate(1);
+        logScore += 1;
       } else {
         console.log('That is incorrect');
         result.style.display = 'block';
-        result.textContent = "That is incorrect. Lose 10 seconds to time"
+        result.textContent = "That is incorrect. Lose 10 seconds to time";
         navigate(1);
+        logScore -= 1;
         timer -= 10;
       }
     });
