@@ -102,105 +102,162 @@ const questions = [
   },
 ];
 
+// Elements and Global variables 
+var startElement = document.querySelector("#start-notes");
 var questionElement = document.querySelector("#question");
 var answerElement = document.querySelector("#answer-buttons");
+var finalScore = document.querySelector("#score");
 var startBtn = document.querySelector("#start");
-var result = document.querySelector("#result");
-var resultArea = document.querySelector(".result-area");
+var submitBtn = document.querySelector("#submit-btn");
+var clearWinner = document.querySelector('#clear-all');
+var result = document.querySelector("#result")
+var quiz = document.querySelector(".app");
+var scoreCard = document.querySelector("#scoreboard");
+var form = document.querySelector("#form");
 var loser = document.querySelector("#lose");
+// const initialEl = document.getElementById("initial-form");
 
+
+var currentQuestionIndex;
 var logScore = 0;
-var index = 0;
+// "-1" = Prevents skipping first question bug
+var index = -1;
 var timer = 60;
-var timerEL = document.querySelector('#timer')
+var clockTime;
+var timerEL = document.querySelector('#timer');
 
-// Starting the quiz
-function startGame() {
-  renderQuestion();
-  renderAnswers();
-  startTimer();
-  // Navigate through questions
-  startBtn.addEventListener('click', function () {
-    navigate(1);
-  });
-
-}
-
-
-// Timer functionality
-function startTimer() {
-  var intervalId = setInterval(function () {
-    timer--;
-    timerEL.textContent = timer;
-    if (timer <= 0) {
-      logScore = 0;
-      clearInterval(intervalId);
-      window.location.assign("./Leaderboard.html");
-      loser.style.display = 'block';
-
-    }
-  }, 1000);
-  console.log(timer);
-}
-
-function navigate(direction) {
-  // Incrementing the index
-  index += direction;
-  if (index < 0) {
-    index = questions.length - 1;
-    // End of test
-  } else if (index >= questions.length) {
-    window.location.assign("./Leaderboard.html")
-    localStorage.setItem('currentUser', logScore);
+// Setting a blank class to store and save winners of quiz
+class Winner {
+  constructor(initials, logScore) {
+    this.initials = initials;
+    this.logScore = logScore;
   }
-  renderQuestion();
+}
+
+function startGame() {
+  currentQuestionIndex = 1;
+  // Start button on index - sets 1st question
+  startBtn.addEventListener('click', function () {
+    startElement.style.display = 'none';
+    quiz.style.display = 'block';
+    // Sets the First Q&A to first question in index
+    navQandA(1);
+  });
+}
+
+
+function navQandA(nextQuestion) {
+  // Increments the index
+  index += nextQuestion;
+  if (index < 0) {
+    index = question.length - 1;
+    // Ends the quiz
+  } else if (index >= questions.length) {
+    quiz.style.display = 'none';
+    scoreCard.style.display = 'block';
+  }
+  // Calls the first question and answer
+  renderQuestions();
   renderAnswers();
 }
 
-function renderQuestion() {
+function renderQuestions() {
   questionElement.textContent = questions[index].question;
-}
+};
 
 function renderAnswers() {
-  // Clear previous buttons
-  answerElement.innerHTML = "";
+  // Clear previous answer buttons - avoids stacking
+  answerElement.innerHTML = '';
+  // Iterate through the answers to display the content of answers on page
   for (let i = 0; i < questions[index].answers.length; i++) {
-    // Create a new p element
+    // Create a button
     const btn = document.createElement("button");
-    // Add a class to style the button
-    btn.className = "btn";
-    // Set the text content for the button
+    // Set class styling for btn
+    btn.className = 'btn';
+    // Set text content of created button
     btn.textContent = questions[index].answers[i].text;
+
+
     btn.addEventListener('click', function () {
       if (questions[index].answers[i].correct) {
-        console.log('That is correct');
+        // Should add 1 to score and 1 to index of question
+        logScore++;
+        currentQuestionIndex++;
+        // Displays answer criteria
         result.style.display = 'block';
         result.textContent = "Correct!";
-        navigate(1);
-        logScore += 1;
+        navQandA(1);
+        quizEnd();
       } else {
-        console.log('That is incorrect');
+        // Should subtract 1 to score and still add 1 to index of questions
+        logScore--;
+        currentQuestionIndex++;
+        // timer -= 10;
+        // Displays answer criteria
         result.style.display = 'block';
-        result.textContent = "That is incorrect. Lose 10 seconds to time";
-        navigate(1);
-        logScore -= 1;
-        timer -= 10;
+        result.textContent = "That is incorrect. You lose 10 seconds to time.";
+        navQandA(1);
+        quizEnd();
       }
     });
+
     // Append the button to the parent element
     answerElement.appendChild(btn);
   }
+  console.log('This is the question index: ' + currentQuestionIndex);
+  console.log('This is the score: ' + logScore);
 }
 
-// function gameOver () {
-//   if (timer === 0 || )
-// };
+// Logs end score result
+function quizEnd() {
+  if (currentQuestionIndex >= 11) {
+    quiz.style.display = 'none';
+    result.style.display = 'none';
+    form.style.display = 'block';
+    finalScore.innerHTML = logScore;
+  };
+};
+
+function saveWinnerToLocalStorage(winner) {
+  // Get existing winners from localStorage
+  const winnersJSON = localStorage.getItem('winners');
+
+  // Parse the winner back into an array or create a new array if no winner yet
+  const winners = winnersJSON ? JSON.parse(winnersJSON) : [];
+
+  // Adding in the new winner to the array
+  winners.push(winner);
+
+  // Save the updated winners array back to localStorage
+  localStorage.setItem('winners', JSON.stringify(winners));
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("initial-form");
+
+  // Your logScore variable
+  const logScore = 0;  // You can set it to the actual value you have
+
+  // Grabbing the winner's initials
+  form.addEventListener('submit', function (event) {
+    // Preventing form from clearing
+    event.preventDefault();
+
+    // Setting the value of the initilas form
+    const winnerInitials = document.getElementById('initials').value;
+
+    // Loading the winner in a new class
+    const newInitials = new Winner(winnerInitials, logScore);
+
+    // Saving the new class
+    saveWinnerToLocalStorage(newInitials);
+
+    // Populate the scoreboard
+
+
+  });
+});
+
+
 
 startGame();
-
-/* Logic yet to be added:
-  - timer
-  - local storage component
-  - adding 10 seconds to clock if answer not correct
-  - checking if 'last variable is true to exit game to leaderboard and save initials
-*/

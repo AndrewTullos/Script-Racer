@@ -23,25 +23,70 @@
   <div class="container">
 
     <main>
+      <div id="start-notes">
+        <div class="item-1 item">
+          <h1>
+            Coding Quiz Challenge
+          </h1>
+        </div>
 
-      <div class="item-1 item">
-        <h1>
-          Coding Quiz Challenge
-        </h1>
+        <div class="item-2 item">
+          <p id="questions">
+            Try to answer the following code-related questions within the time limit.
+            Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+          </p>
+          <div class="item-3 item">
+            <a id="start" class="button-link">Start Quiz</a>
+          </div>
+        </div>
       </div>
 
-      <div class="item-2 item quiz">
-        <p id="questions">
-          Try to answer the following code-related questions within the time limit.
-          Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+
+
+
+      <div class="item-4 item">
+        <!-- Question Dialog -->
+        <div class="app">
+          <div class="quiz">
+            <h1 id="question">Question goes here</h1> <br>
+            <div id="answer-buttons">
+              <button class="btn">Answer 1</button>
+              <button class="btn">Answer 2</button>
+              <button class="btn">Answer 3</button>
+              <button class="btn">Answer 4</button>
+            </div>
+          </div>
+        </div>
+        <div class="result-area">
+          <p id="result"></p>
+        </div>
+
+        <!-- Lose Dialog -->
+        <div class="item-5 item">
+          <p id="lose">
+            I'm sorry, but you ran out of time. <br><br>
+            Try again!
+          </p>
+          <div class="home">
+            <a href="index.html" class="button-link">Home</a>
+            <a href="index.html" class="button-link">Clear high scores</a>
+          </div>
+        </div>
         </p>
-      </div>
 
-      <div class="item-3 item">
-        <a href="Questions.html" id="start" class="button-link">Start Quiz</a>
+        <!-- Form -->
+        <div id="form" class="item-6">
+          <h3>All done!</h3>
+          <p>Your final score is: <span id="score"></span></p>
+          <form id="initial-form">
+            <label for="initials">Enter initials: </label>
+            <input type="text" id="initials" name="initials">
+            <button type="submit" id="submit-btn" class="btn">Submit</button>
+          </form>
+          <a href="index.html" class="button-link">Home</a>
+          <a href="index.html" id="clear-all" class="button-link">Clear high scores</a>
+        </div>
       </div>
-
-      <div class="item-4 item"></div>
 
     </main>
 
