@@ -114,7 +114,9 @@ var clearWinner = document.querySelector('#clear-all');
 var result = document.querySelector("#result")
 var quiz = document.querySelector(".app");
 var form = document.querySelector("#form");
+
 var loser = document.querySelector("#lose");
+var scoreBoard = document.querySelector('#scoreboard')
 // const initialEl = document.getElementById("initial-form");
 
 
@@ -243,17 +245,17 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener('submit', function (event) {
     // Preventing form from clearing
     event.preventDefault();
-
+    scoreBoard.style.display = 'block';
+    form.style.display = 'none';
     // Setting the value of the initilas form
     const winnerInitials = document.getElementById('initials').value;
 
-    // Loading the winner in a new class
+    // Creating the winner in a new class
     const newInitials = new Winner(winnerInitials, logScore);
 
     // Saving the new class
     saveWinnerToLocalStorage(newInitials);
 
-    // Populate the scoreboard
   });
 });
 
@@ -274,19 +276,24 @@ function displayStoredWinners() {
 
   // Loop through each object in the array
   // Clear any previous content
-  listWinners.textContent = ''; 
+  listWinners.innerHTML = '';
+
+  // Sort array winners frim high score to low score
+  winners.sort((a, b) => b.logScore - a.logScore);
+  // Iterate through the answers to display the content of answers on page\
   winners.forEach((winner, index) => {
-    listWinners.textContent += `Winner ${index + 1}: ${winner.initials} Score: ${winner.logScore}\n`;
+    const list = document.createElement("li");
+    list.className = 'list';
+    list.textContent = `${winner.initials} Score: ${winner.logScore}\n`;
+    // listWinners.textContent += `Winner ${index + 1}: ${winner.initials} Score: ${winner.logScore}\n`;
     console.log(`Winner ${index + 1}: ${winner.initials} with score ${winner.logScore}`);
+    listWinners.append(list);
   });
+
 
 }
 
 // Call the function to display the stored winners
 displayStoredWinners();
-
-
-
-
 
 startGame();

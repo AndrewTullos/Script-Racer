@@ -33,6 +33,10 @@ header {
   width: 100%;
 }
 
+h1 {
+  text-align: center;
+}
+
 .leaderboard>a {
   color: #BD60E7;
 }
@@ -149,4 +153,24 @@ h1 {
 
 .app {
   display: none;
+}
+
+#scoreboard {
+  display: none;
+}
+
+.listWinners {
+  list-style-position: inside;
+  border: 4px solid black;
+  font-weight: 400;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.list {
+  border: 2px solid #BDA0E7;
+  background-color: #351C75;
+  color: white;
+
 }
