@@ -9,3 +9,4 @@ https://www.nikitakazakov.com/js-wait-until-loaded-dom-element
 https://www.reddit.com/r/learnjavascript/comments/nuezux/uncaught_typeerror_documentqueryselector_is_null/
 https://www.nikitakazakov.com/js-wait-until-loaded-dom-element
 https://www.youtube.com/watch?v=PBcqGxrr9g8&ab_channel=GreatStack
+https://www.w3schools.com/howto/howto_js_validation_empty_input.asp

@@ -104,6 +104,7 @@ const questions = [
 
 // Elements and Global variables 
 var startElement = document.querySelector("#start-notes");
+var showTime = document.querySelector(".show-time");
 var questionElement = document.querySelector("#question");
 var answerElement = document.querySelector("#answer-buttons");
 var finalScore = document.querySelector("#score");
@@ -115,15 +116,15 @@ var result = document.querySelector("#result")
 var quiz = document.querySelector(".app");
 var form = document.querySelector("#form");
 
+
 var loser = document.querySelector("#lose");
 var scoreBoard = document.querySelector('#scoreboard')
-// const initialEl = document.getElementById("initial-form");
 
-
-var currentQuestionIndex;
+var intervalId;
+var currentQuestionIndex = 0;
 var logScore = 0;
 // "-1" = Prevents skipping first question bug
-var index = -1;
+var index = 0;
 var timer = 60;
 var clockTime;
 var timerEL = document.querySelector('#timer');
@@ -136,42 +137,57 @@ class Winner {
   }
 }
 
+const
+
 // localStorage.setItem('Winner', JSON.stringify(Winner));
 
 
 function startGame() {
-  currentQuestionIndex = 1;
+  //currentQuestionIndex = 1;
   // Start button on index - sets 1st question
   startBtn.addEventListener('click', function () {
     startElement.style.display = 'none';
     quiz.style.display = 'block';
+    showTime.style.display = 'block'
     // Sets the First Q&A to first question in index
-    navQandA(1);
+    startTimer();
+    navQandA();
     clearLocalStor();
   });
 }
 
+function startTimer() {
+  intervalId = setInterval(function () {
+    timerEL.textContent = timer;
+    timer--;
+    if (timer <= 0) {
 
-function navQandA(nextQuestion) {
-  // Increments the index
-  index += nextQuestion;
-  if (index < 0) {
-    index = question.length - 1;
-    // Ends the quiz
-  } else if (index >= questions.length) {
-    quiz.style.display = 'none';
-    scoreCard.style.display = 'block';
-  }
-  // Calls the first question and answer
-  renderQuestions();
-  renderAnswers();
-}
-
-function renderQuestions() {
-  questionElement.textContent = questions[index].question;
+      loser.style.display = 'block';
+      logScore = -1;
+      quizEnd()
+      console.log(clockTime);
+    }
+  }, 1000);
 };
 
-function renderAnswers() {
+function navQandA() {
+  if (index >= questions.length) {
+
+    //scoreCard.style.display = 'block';
+    quizEnd()
+  } else {
+    // Calls the first question and answer
+    renderQA();
+    // Increments the index
+
+  }
+
+
+}
+
+
+function renderQA() {
+  questionElement.textContent = questions[index].question;
   // Clear previous answer buttons - avoids stacking
   answerElement.innerHTML = '';
   // Iterate through the answers to display the content of answers on page
@@ -183,46 +199,59 @@ function renderAnswers() {
     // Set text content of created button
     btn.textContent = questions[index].answers[i].text;
 
+    //btn.onclick = function(){}
 
     btn.addEventListener('click', function () {
       if (questions[index].answers[i].correct) {
         // Should add 1 to score and 1 to index of question
         logScore++;
-        currentQuestionIndex++;
+        // currentQuestionIndex++;
         // Displays answer criteria
         result.style.display = 'block';
         result.textContent = "Correct!";
-        navQandA(1);
-        quizEnd();
+
+
       } else {
         // Should subtract 1 to score and still add 1 to index of questions
         logScore--;
-        currentQuestionIndex++;
-        // timer -= 10;
+        // currentQuestionIndex++;
+        timer -= 10;
         // Displays answer criteria
         result.style.display = 'block';
         result.textContent = "That is incorrect. You lose 10 seconds to time.";
-        navQandA(1);
-        quizEnd();
+
+
       }
+      index++;
+      navQandA();
     });
 
     // Append the button to the parent element
     answerElement.appendChild(btn);
   }
-  console.log('This is the question index: ' + currentQuestionIndex);
+  console.log('This is the question index: ' + index);
   console.log('This is the score: ' + logScore);
-}
+};
 
 // Logs end score result
 function quizEnd() {
-  if (currentQuestionIndex >= 11) {
-    quiz.style.display = 'none';
+  clearInterval(intervalId);
+  quiz.style.display = 'none';
+  if (timer > 0) {
     result.style.display = 'none';
     form.style.display = 'block';
     finalScore.innerHTML = logScore;
   };
 };
+
+// Idea to return too
+// function validateForm() {
+//   var x = document.forms["myForm"]["initials"].value;
+//   if (x == "") {
+//     alert("Name must be filled out");
+//     return false;
+//   }
+// };
 
 function saveWinnerToLocalStorage(winner) {
   // Get existing winners from localStorage
@@ -295,5 +324,6 @@ function displayStoredWinners() {
 
 // Call the function to display the stored winners
 displayStoredWinners();
+console.log(currentQuestionIndex)
 
 startGame();

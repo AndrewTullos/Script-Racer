@@ -14,8 +14,8 @@
       <div class="leaderboard">
         <a href="Leaderboard.html">View High Scores</a>
       </div>
-      <div>
-        <!-- Time: <span id="timer">00:00:00</span> -->
+      <div class="show-time">
+        Time: <span id="timer"></span>
       </div>
     </header>
   </div>
@@ -66,11 +66,9 @@
           <p id="lose">
             I'm sorry, but you ran out of time. <br><br>
             Try again!
-          </p>
-          <div class="home">
             <a href="index.html" class="button-link">Home</a>
-            <!-- <a href="index.html" class="button-link">Clear high scores</a> -->
-          </div>
+
+          </p>
         </div>
         </p>
 
@@ -78,7 +76,7 @@
         <div id="form" class="item-6">
           <h3>All done!</h3>
           <p>Your final score is: <span id="score"></span></p>
-          <form id="initial-form">
+          <form id="initial-form" name="myForm" required>
             <label for="initials">Enter initials: </label>
             <input type="text" id="initials" name="initials">
             <button type="submit" id="submit-btn" class="btn">Submit</button>
