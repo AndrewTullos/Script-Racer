@@ -123,7 +123,6 @@ var scoreBoard = document.querySelector('#scoreboard')
 var intervalId;
 var currentQuestionIndex = 0;
 var logScore = 0;
-// "-1" = Prevents skipping first question bug
 var index = 0;
 var timer = 60;
 var clockTime;
@@ -137,7 +136,6 @@ class Winner {
   }
 }
 
-const
 
 // localStorage.setItem('Winner', JSON.stringify(Winner));
 
