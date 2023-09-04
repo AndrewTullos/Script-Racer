@@ -107,12 +107,12 @@ var startElement = document.querySelector("#start-notes");
 var questionElement = document.querySelector("#question");
 var answerElement = document.querySelector("#answer-buttons");
 var finalScore = document.querySelector("#score");
+var listWinners = document.querySelector(".listWinners");
 var startBtn = document.querySelector("#start");
 var submitBtn = document.querySelector("#submit-btn");
 var clearWinner = document.querySelector('#clear-all');
 var result = document.querySelector("#result")
 var quiz = document.querySelector(".app");
-var scoreCard = document.querySelector("#scoreboard");
 var form = document.querySelector("#form");
 var loser = document.querySelector("#lose");
 // const initialEl = document.getElementById("initial-form");
@@ -134,6 +134,9 @@ class Winner {
   }
 }
 
+// localStorage.setItem('Winner', JSON.stringify(Winner));
+
+
 function startGame() {
   currentQuestionIndex = 1;
   // Start button on index - sets 1st question
@@ -142,6 +145,7 @@ function startGame() {
     quiz.style.display = 'block';
     // Sets the First Q&A to first question in index
     navQandA(1);
+    clearLocalStor();
   });
 }
 
@@ -235,9 +239,6 @@ function saveWinnerToLocalStorage(winner) {
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("initial-form");
 
-  // Your logScore variable
-  const logScore = 0;  // You can set it to the actual value you have
-
   // Grabbing the winner's initials
   form.addEventListener('submit', function (event) {
     // Preventing form from clearing
@@ -253,10 +254,38 @@ document.addEventListener("DOMContentLoaded", function () {
     saveWinnerToLocalStorage(newInitials);
 
     // Populate the scoreboard
-
-
   });
 });
+
+// Clear local storage
+function clearLocalStor() {
+  clearWinner.addEventListener('click', function () {
+    localStorage.clear();
+  })
+}
+
+
+function displayStoredWinners() {
+  // Retrieve the JSON string from localStorage
+  const winnersJSON = localStorage.getItem('winners');
+
+  // Parse the JSON string into an array
+  const winners = winnersJSON ? JSON.parse(winnersJSON) : [];
+
+  // Loop through each object in the array
+  // Clear any previous content
+  listWinners.textContent = ''; 
+  winners.forEach((winner, index) => {
+    listWinners.textContent += `Winner ${index + 1}: ${winner.initials} Score: ${winner.logScore}\n`;
+    console.log(`Winner ${index + 1}: ${winner.initials} with score ${winner.logScore}`);
+  });
+
+}
+
+// Call the function to display the stored winners
+displayStoredWinners();
+
+
 
 
 
